@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowin.Web", "CashFlowin\CashFlowin.Web.csproj", "{FBEA2730-E5C1-45B2-BC1C-EDC037E87D22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowin.Web", "CashFlowin\CashFlowin.Web.csproj", "{FBEA2730-E5C1-45B2-BC1C-EDC037E87D22}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowin.Terminal", "CashFlowin.Terminal\CashFlowin.Terminal.csproj", "{CBC59655-A7A8-4E78-8D57-DA041F92A367}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashFlowin.UnitTests", "CashFlowin.UnitTests\CashFlowin.UnitTests.csproj", "{787EA90C-9D81-423F-A0E3-A8B868718FF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6D0A576-F372-4324-B562-A82190B0E6BD}"
+	ProjectSection(SolutionItems) = preProject
+		CashFlow Example.xls = CashFlow Example.xls
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
