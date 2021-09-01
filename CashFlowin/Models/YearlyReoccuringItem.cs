@@ -1,4 +1,6 @@
-﻿namespace CashFlowin.Models
+﻿using static CashFlowin.Models.Date;
+
+namespace CashFlowin.Models
 {
     public class YearlyReoccuringItem : ReoccuringItem<MonthDay>
     {
@@ -7,14 +9,22 @@
 
         public override Date Next(Date date)
         {
-            var thisDate = (Date.Create(date.Value.Year, (int)Reoccurance.Month, (int)Reoccurance.DayOfMonth));
+
+
+            var thisDate =
+                Reoccurance.IsLeapDay() &&
+                !IsLeapYear(date.Value.Year) ?
+                    Create(date.Value.Year, (int)Reoccurance.Month, (int)DaysOfMonth.TwentyEighth) :
+                    Create(date.Value.Year, (int)Reoccurance.Month, (int)Reoccurance.DayOfMonth);
+
+
             if (date <= thisDate.Value)
             {
                 return thisDate;
             }
             else 
             {
-                return Date.Create(date.Value.Year + 1, (int)Reoccurance.Month, (int)Reoccurance.DayOfMonth);
+                return thisDate.AddYears(1);
             }
         }
     }

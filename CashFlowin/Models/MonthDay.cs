@@ -11,5 +11,7 @@ namespace CashFlowin.Models
             Month = (Months)date.Value.Month;
             DayOfMonth = (DaysOfMonth)date.Value.Day;
         }
+
+        public bool IsLeapDay() => Month == Months.February && DayOfMonth == DaysOfMonth.TwentyNineth;
     }
 }

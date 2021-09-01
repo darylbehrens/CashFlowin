@@ -16,6 +16,8 @@ namespace CashFlowin.Models
 
         public static Date Create(int year, int month, int day) => new() { Value = new DateTime(year, month, day).Date };
 
+        public static bool IsLeapYear(int year) => DateTime.IsLeapYear(year);
+
         public static Date Create(int year, Months month, DaysOfMonth dayOfMonth) => Create(year, (int)month, (int)dayOfMonth);
 
         /// <summary>
