@@ -23,10 +23,10 @@ namespace CashFlowin.UnitTests
 
             // Assert
             // There were 12 Fifteenths in 2021
-            Assert.AreEqual(12, result.Values.Count);
-            Assert.AreEqual(Create(2021, 1, 15).Value, result.Keys.First().Value);
-            result.Keys.ToList().ForEach(x => Assert.AreEqual((DaysOfMonth)x.Value.Day,DaysOfMonth.Fifteenth));
-            Assert.AreEqual(120, result.Values.Sum(x => x.Value));
+            Assert.AreEqual(12, result.Count);
+            Assert.AreEqual(Create(2021, 1, 15).Value, result.First().Date);
+            result.ForEach(x => Assert.AreEqual((DaysOfMonth)x.Date.DayOfMonth,DaysOfMonth.Fifteenth));
+            Assert.AreEqual(120, result.Sum(x => x.Item.Value));
         }
 
         [Test]
@@ -41,11 +41,11 @@ namespace CashFlowin.UnitTests
 
             // Assert
             // There were 12 Last Day Of Month in 2021
-            Assert.AreEqual(12, result.Values.Count);
+            Assert.AreEqual(12, result.Count);
 
             // Test that if a month has less days it will still go to last day
-            Assert.AreEqual(Create(2021, 2, 28).Value, result.Keys.Skip(1).First().Value);
-            Assert.AreEqual(120, result.Values.Sum(x => x.Value));
+            Assert.AreEqual(Create(2021, 2, 28).Value, result.Skip(1).First().Date);
+            Assert.AreEqual(120, result.Sum(x => x.Item.Value));
         }
     }
 }

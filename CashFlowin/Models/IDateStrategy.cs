@@ -20,6 +20,7 @@ namespace CashFlowin.Models
     public interface IReoccurable
     {
         Date Next(Date date);
+        List<DatedNamedDecimalItem> GetBetween(Period period);
     }
 
     public interface IBounded<T>
@@ -56,6 +57,19 @@ namespace CashFlowin.Models
         public override string ToString() => $"{Name} : ${Value}";
     }
 
+    public class DatedNamedDecimalItem
+    {
+        public DatedNamedDecimalItem(Date date, NamedDecimalItem item)
+        {
+            Date = date ?? throw new ArgumentNullException(nameof(date));
+            Item = item ?? throw new ArgumentNullException(nameof(item));
+        }
+
+        public Date Date { get; set; }
+        public NamedDecimalItem Item { get; set; }
+    }
+
+
     public abstract class ReoccuringItem<T> : BoundedItem<Date>, IReoccurable
     {
 
@@ -77,9 +91,9 @@ namespace CashFlowin.Models
         }
 
         public abstract Date Next(Date date);
-        public Dictionary<Date, NamedDecimalItem> GetBetween(Period period)
+        public List<DatedNamedDecimalItem> GetBetween(Period period)
         {
-            var result = new Dictionary<Date, NamedDecimalItem>();
+            var result = new List<DatedNamedDecimalItem>();
 
             period = UnionPeriod(period);
             if (period.Start.Value >= period.End.Value) return null; // We need to Setup A Maybe Monad incase of this
@@ -90,7 +104,7 @@ namespace CashFlowin.Models
             while (date.Value <= period.End.Value)
             {
                 date = Next(date);
-                result.Add(date, Item);
+                result.Add(new DatedNamedDecimalItem(date, Item) );
                 date = NextInstance(date);
             }
             return result;
