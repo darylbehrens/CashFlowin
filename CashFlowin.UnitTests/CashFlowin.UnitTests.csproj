@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CashFlowin.Terminal\CashFlowin.Terminal.csproj" />
     <ProjectReference Include="..\CashFlowin\CashFlowin.Web.csproj" />
   </ItemGroup>
 
