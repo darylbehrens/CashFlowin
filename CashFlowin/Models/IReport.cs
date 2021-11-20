@@ -28,7 +28,9 @@ namespace CashFlowin.Web.Models
             }
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using ExcelPackage package = new(file);
-            MonthlyReport(startDate, package, items,startValue);
+            MonthlyReport(startDate, package, items, startValue);
+            WeeklyReport(startDate, DayOfWeek.Friday, package, items, startValue);
+            YearlyReport(startDate, package, items, startValue);
             //var ws = package.Workbook.Worksheets.Add("TEST");
             //var rowcount = 2;
 
@@ -75,7 +77,7 @@ namespace CashFlowin.Web.Models
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
            
-            var ws = package.Workbook.Worksheets.Add("TEST");
+            var ws = package.Workbook.Worksheets.Add("Monthly");
             var rowcount = 3;
 
 
@@ -133,11 +135,11 @@ namespace CashFlowin.Web.Models
             }
         }
 
-        private static void WeeklyReport(Date startDate, DayOfWeek weekstart, ExcelPackage package, List<DatedNamedDecimalItem> items, decimal startValue)
+        private static void WeeklyReport(Date startDate, DayOfWeek weekstart,  ExcelPackage package, List<DatedNamedDecimalItem> items, decimal startValue)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var ws = package.Workbook.Worksheets.Add("TEST");
+            var ws = package.Workbook.Worksheets.Add("Weekly");
             var rowcount = 3;
 
 
@@ -166,7 +168,71 @@ namespace CashFlowin.Web.Models
 
             var columncount = 2;
 
-            foreach (var Dates in items.OrderBy(x => x.Date.Value).GroupBy(x => $"{x.Date.Value.Month}-{x.Date.Value.Year}"))
+            foreach (var Dates in items.OrderBy(x => x.Date.Value)
+                .GroupBy(x => x.Date.StartOfWeek(DayOfWeek.Friday).Value))
+            {
+                var zip = new Dictionary<string, decimal>();
+                decimal value = 0M;
+                // Zip Em
+                foreach (var i in Dates)
+                {
+                    if (!zip.TryGetValue(i.Item.Name, out value))
+                    {
+                        zip.Add(i.Item.Name, i.Item.Value);
+                    }
+                    else
+                    {
+                        zip[i.Item.Name] = zip[i.Item.Name] + i.Item.Value;
+                    }
+                }
+
+                ws.Cells[1, columncount].Value = Dates.Key;
+                ws.Cells[2, columncount].Value = startValue;
+                foreach (var i in zip)
+                {
+                    int index = i.Value > 0 ? IncomeLocation[i.Key] : ExpenseLocation[i.Key];
+                    ws.Cells[index, columncount].Value = i.Value;
+                }
+                startValue = startValue + Dates.Sum(x => x.Item.Value);
+                columncount++;
+            }
+        }
+
+        private static void YearlyReport(Date startDate, ExcelPackage package, List<DatedNamedDecimalItem> items, decimal startValue)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var ws = package.Workbook.Worksheets.Add("Yearly");
+            var rowcount = 3;
+
+
+            // Create List Of Expenses
+            var income = items.Where(x => x.Item.Value > 0).Select(x => x.Item.Name).Distinct();
+            var expense = items.Where(x => x.Item.Value <= 0).Select(x => x.Item.Name).Distinct();
+            Dictionary<string, int> ExpenseLocation = new();
+            Dictionary<string, int> IncomeLocation = new();
+
+            foreach (var incomeItem in income)
+            {
+                ws.Cells[rowcount, 1].Value = incomeItem;
+                IncomeLocation.Add(incomeItem, rowcount);
+                rowcount++;
+
+            }
+
+            rowcount++;
+
+            foreach (var expenseItem in expense)
+            {
+                ws.Cells[rowcount, 1].Value = expenseItem;
+                ExpenseLocation.Add(expenseItem, rowcount);
+                rowcount++;
+            }
+
+            var columncount = 2;
+
+            foreach (var Dates in items.OrderBy(x => x.Date.Value)
+                .GroupBy(x => x.Date.Value.Year))
             {
                 var zip = new Dictionary<string, decimal>();
                 decimal value = 0M;

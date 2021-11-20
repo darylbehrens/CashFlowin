@@ -67,6 +67,7 @@ namespace CashFlowin.Models
 
         public Date Date { get; set; }
         public NamedDecimalItem Item { get; set; }
+        public override string ToString() => $"{Date.Value.ToShortDateString()} - {Item.Name} : ${Item.Value}";
     }
 
 
@@ -115,7 +116,7 @@ namespace CashFlowin.Models
             var startDate = Date.Create(Start.Value);
             while (startDate.Value < date.Value)
             {
-                startDate = NextInstance(startDate);
+                startDate = startDate.AddDays(1);
             }
             return startDate;
         }

@@ -104,8 +104,20 @@ namespace CashFlowin.Models
             Thrityeith,
             ThirtyFirst
         }
-    }
 
+    }
+    public static class DateTimeExtensions
+    {
+        public static Date StartOfWeek(this Date dt, DayOfWeek startOfWeek)
+        {
+            int diff = dt.Value.DayOfWeek - startOfWeek;
+            if (diff < 0)
+            {
+                diff += 7;
+            }
+            return dt.AddDays(-1 * diff);
+        }
+    }
 
 
     public class Period
