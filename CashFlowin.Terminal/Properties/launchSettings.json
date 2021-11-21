@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CashFlowin.Terminal": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

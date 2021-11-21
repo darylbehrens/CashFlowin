@@ -24,9 +24,10 @@ namespace CashFlowin.Terminal
 
             //    Console.ReadLine();
 
-            p TestPeriod = p.Create(Create(2021, 11, 12), Create(2030, 12,31));
+            p TestPeriod = p.Create(Create(2021, 11, 19), Create(2030, 12,31));
             p ItemPeriod = p.Create(Create(2021, 11, 10), Create(2051, 9, 17));
             p MortgagePeriod = p.Create(Create(2022, 03, 1), Create(2051, 11, 1));
+            p GenexTempIncvome = p.Create(Create(2021, 12, 13), Create(2022, 02, 15));
             p WorkIncomePeriodOne = p.Create(Create(2021, 11, 19), Create(2023, 05, 31));
             p WorkIncomePeriodTwo = p.Create(Create(2023, 06, 01), Create(2026, 06,26));
             p WorkIncomePeriodThree = p.Create(Create(2026, 06, 27), Create(2059, 12, 31));
@@ -45,7 +46,8 @@ namespace CashFlowin.Terminal
             //}
             //var total = result.Select(x => x.Value).Sum(x => x.Value);
             //Console.WriteLine(total);
-            var Job = new BiweeklyReoccuringItem(System.DayOfWeek.Friday, WorkIncomePeriodOne, new NamedDecimalItem("Job", 2950));
+            var GenexLastDays = new BiweeklyReoccuringItem(System.DayOfWeek.Friday, GenexTempIncvome, new NamedDecimalItem("Genex", 4803));
+            var Job = new BiweeklyReoccuringItem(System.DayOfWeek.Friday, WorkIncomePeriodOne, new NamedDecimalItem("Job", 2903));
             var Job2 = new BiweeklyReoccuringItem(System.DayOfWeek.Friday, WorkIncomePeriodTwo, new NamedDecimalItem("Job", 3019));
             var Job3 = new BiweeklyReoccuringItem(System.DayOfWeek.Friday, WorkIncomePeriodThree, new NamedDecimalItem("Job", 4500));
             var Bonus = new YearlyReoccuringItem(new MonthDay(Date.Create(2021, 12, 25)), 1, ItemPeriod, new NamedDecimalItem("Bonus", 6000));
@@ -80,7 +82,7 @@ namespace CashFlowin.Terminal
 
 
             var Items = new List<IReoccurable>();
-            Items.Add(Job); Items.Add(Job2); Items.Add(Job3);
+            Items.Add(Job); Items.Add(Job2); Items.Add(Job3); Items.Add(GenexLastDays);
             Items.Add(House);
             Items.Add(Groceries);
             Items.Add(Electric);
@@ -128,7 +130,7 @@ namespace CashFlowin.Terminal
 
             //}
 
-            ReportGenerator.SaveReport(new System.IO.FileInfo($@"C:\temp\{DateTime.Now.ToString("MMddyyhhmmss")}.xlsx"), ReportType.Yearly, Date.Create(DateTime.Today), results,8000);
+            ReportGenerator.SaveReport(new System.IO.FileInfo($@"D:\temp\{DateTime.Now.ToString("MMddyyhhmmss")}.xlsx"), ReportType.Yearly, Date.Create(DateTime.Today), results,5763);
             var total = results.Sum(x => x.Item.Value);
             Console.WriteLine(total);
         }
