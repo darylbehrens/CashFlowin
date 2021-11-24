@@ -12,6 +12,9 @@ const Output = () => {
                     <option value="monthly">Monthly</option>
                     <option value="yearly">Yearly</option>
                 </select><br />
+                <input type="text" id="StartDate" defaultValue="Item Start Date" /><br />
+                <input type="text" id="EndDate" defaultValue="Item End Date" /><br />
+                <input type="text" id="Skip" defaultValue="Item Skip" /><br />
                 <input type="submit" value="Insert" />
             </div>
         </form>
