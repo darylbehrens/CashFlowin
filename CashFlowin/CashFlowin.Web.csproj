@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\components\ReoccuringItem.tsx" />
-    <None Remove="ClientApp\src\DisplayData.tsx" />
     <None Remove="ClientApp\src\DisplayTableTwo.tsx" />
   </ItemGroup>
 
