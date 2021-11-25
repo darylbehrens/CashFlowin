@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="30c3331f-647a-40ee-ba8c-36c7372e12c3" ChangeDateTime="11/25/2021 18:32:40">
+    <Property Name="ElementName" Value="[dbo].[ReoccuringItem].[Frequency]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ReoccuringItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReoccuranceId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="76eaa884-5e5c-442d-a5c7-e473e92402f3" ChangeDateTime="11/25/2021 18:33:32">
+    <Property Name="ElementName" Value="[dbo].[ReoccuringItem].[ReoccuranceId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ReoccuringItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Reoccurance" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="945527a9-cd9d-42d5-9910-88b810f5519e" ChangeDateTime="11/25/2021 18:33:52">
+    <Property Name="ElementName" Value="[dbo].[ReoccuringItem].[Reoccurance]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ReoccuringItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReoccuranceModifier" />
+  </Operation>
+</Operations>
