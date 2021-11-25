@@ -8,6 +8,10 @@ import { createBrowserHistory } from 'history';
 import configureStore from './store/configureStore';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import DisplayData from './DisplayData';
+import AddItem from './AddItem';
+import DisplayInfo from './DisplayInfo';
+import './BasicStyle.css';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
@@ -16,10 +20,20 @@ const history = createBrowserHistory({ basename: baseUrl });
 // Get the application-wide store instance, prepopulating with state from the server where available.
 const store = configureStore(history);
 
+const Output = () => {
+    return (
+        <div className="GridContainer" >
+                <AddItem />
+                <DisplayInfo />
+        </div >
+    );
+}
+
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <App />
+            <DisplayData />
+            <Output />
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root'));
